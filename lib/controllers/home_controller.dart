@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -48,12 +45,8 @@ class HomeController extends GetxController {
     position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user!.uid)
-        .update({
-      'marker id': user!.uid,
+    await FirebaseFirestore.instance.collection('Users').doc(user.uid).update({
+      'marker id': user.uid,
       'latitude': position!.latitude,
       'longitude': position!.longitude
     });
