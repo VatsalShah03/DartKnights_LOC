@@ -1,3 +1,4 @@
+import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
@@ -5,6 +6,7 @@ import 'package:dart_knights/views/settings/settings.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +19,29 @@ class NavDrawer extends StatefulWidget {
 
 class _NavDrawerState extends State<NavDrawer> {
   HomeController homeController = Get.put(HomeController());
+
+  Widget getPremiumNow() {
+    return Card(
+      margin: EdgeInsets.all(8),
+      color: ResourceColors.tertiaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(children: [
+          SizedBox(
+              height: 80, child: SvgPicture.asset("assets/get_premium.svg")),
+          Text(
+            "Get Premium Now !!",
+            style: TextStyle(color: ResourceColors.primaryColor, fontSize: 25),
+          ),
+          Text(
+            "Click to check benefits",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+        ]),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -95,6 +120,8 @@ class _NavDrawerState extends State<NavDrawer> {
                     provider.logout();
                   },
                 ),
+                Spacer(),
+                getPremiumNow()
               ],
             );
           }),
