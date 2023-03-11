@@ -1,3 +1,4 @@
+import 'package:dart_knights/NavBar.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/views/auth/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,19 +24,7 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasData) {
-              return Scaffold(
-                body: Center(
-                  child: ElevatedButton(
-                    child: Text("Logout"),
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(
-                          context,
-                          listen: false);
-                      provider.logout();
-                    },
-                  ),
-                ),
-              );
+              return NavBar();
             } else if (snapshot.hasError) {
               return Center(
                 child: Text("An Error Ocurred! "),

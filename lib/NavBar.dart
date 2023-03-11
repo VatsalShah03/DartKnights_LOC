@@ -16,8 +16,9 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-  static  List<Widget> _widgetOptions = <Widget>[
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Post(),
     Jobs(),
