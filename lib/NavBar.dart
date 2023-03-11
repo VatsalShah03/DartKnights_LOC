@@ -1,3 +1,4 @@
+import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Home.dart';
 import 'Jobs.dart';
-import 'Maps.dart';
 import 'Post.dart';
 
 class NavBar extends StatefulWidget {
@@ -23,7 +23,7 @@ class _NavBarState extends State<NavBar> {
     Post(),
     Payment(),
     //Jobs(),
-    Maps(),
+    maps(),
   ];
   @override
   Widget build(BuildContext context) {
