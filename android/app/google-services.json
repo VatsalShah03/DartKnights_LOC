@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "329560456826",
+    "project_id": "loc-2023",
+    "storage_bucket": "loc-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329560456826:android:c0b22f9f8f74303b0145c3",
+        "android_client_info": {
+          "package_name": "com.example.dart_knights"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329560456826-2ns16etm0t51ctopdv63j114gdha93fp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPTlvKAAQIXAZbeDMLqOnsM01dtQeJc2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329560456826-2ns16etm0t51ctopdv63j114gdha93fp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
