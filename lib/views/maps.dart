@@ -30,10 +30,6 @@ class _mapsState extends State<maps> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: Text("Google Maps"),
-        backgroundColor: Colors.green,
-      ),
       body: StreamBuilder(
           stream: _readEmplyersLocation(),
           builder: (context, snapshot) {
@@ -49,16 +45,25 @@ class _mapsState extends State<maps> {
             }
 
             _markers.add(Marker(
-                markerId: MarkerId(user!.uid),
-                position: LatLng(homeController.position!.latitude,
-                    homeController.position!.longitude)));
+              markerId: MarkerId(user!.uid),
+              position: LatLng(homeController.position!.latitude,
+                  homeController.position!.longitude),
+            ));
 
             for (int i = 0; i < snapshot.data!.length; i++) {
               print(snapshot.data![i].latitude!);
-              _markers.add(Marker(
-                  markerId: MarkerId(snapshot.data![i].id!),
-                  position: LatLng(snapshot.data![i].latitude!,
-                      snapshot.data![i].longitude!)));
+              if (snapshot.data![i].isEmployer == true) {
+                _markers.add(Marker(
+                    markerId: MarkerId(snapshot.data![i].id!),
+                    position: LatLng(snapshot.data![i].latitude!,
+                        snapshot.data![i].longitude!)));
+              } else if (snapshot.data![i].id! == user!.uid) {
+                _markers.add(Marker(
+                    markerId: MarkerId(snapshot.data![i].id!),
+                    position: LatLng(snapshot.data![i].latitude!,
+                        snapshot.data![i].longitude!),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(210)));
+              }
             }
             return Container(
               height: MediaQuery.of(context).size.height,
@@ -67,9 +72,20 @@ class _mapsState extends State<maps> {
                 initialCameraPosition: CameraPosition(
                     target: LatLng(homeController.position!.latitude,
                         homeController.position!.longitude),
-                    zoom: 17),
+                    zoom: 14),
                 onMapCreated: _onMapCreated,
                 markers: _markers,
+                circles: {
+                  Circle(
+                    circleId: CircleId(user!.uid),
+                    center: LatLng(homeController.position!.latitude,
+                        homeController.position!.longitude),
+                    radius: 750,
+                    fillColor: Colors.green.withOpacity(0.5),
+                    strokeColor: Colors.green.withOpacity(0.5),
+                    strokeWidth: 1
+                  )
+                },
               ),
             );
           }),
