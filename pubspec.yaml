@@ -41,6 +41,8 @@ dependencies:
   http:
   fluttertoast:
   razorpay_flutter:
+  smooth_page_indicator:
+  readmore:
   google_nav_bar: ^5.0.6
   image_picker: ^0.8.7
   google_maps_flutter: ^2.2.5
