@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
@@ -54,20 +55,21 @@ class _NavDrawerState extends State<NavDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Colors.lightBlue[50],
-      child: FutureBuilder(
-          future: homeController.getUserDetails(),
+      child: FutureBuilder<dynamic>(
+          future: getUserDetails(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
+            print(snapshot.data);
             return ListView(
               padding: EdgeInsets.zero,
               children: [
                 UserAccountsDrawerHeader(
-                  accountName: Text(homeController.name!),
-                  accountEmail: Text(homeController.email!),
+                  accountName: Text(snapshot.data![0]),
+                  accountEmail: Text(snapshot.data![1]),
                   currentAccountPicture: CircleAvatar(
                     child: ClipOval(
                       child: Image.network(
@@ -134,5 +136,19 @@ class _NavDrawerState extends State<NavDrawer> {
             );
           }),
     );
+  }
+
+  getUserDetails() async {
+    final user = FirebaseAuth.instance.currentUser!;
+    final userCollection = FirebaseFirestore.instance.collection('Users');
+    String? name;
+    String? email;
+    bool? isEmployer;
+
+    DocumentSnapshot ds = await userCollection.doc(user.uid).get();
+    name = ds.get("Name");
+    email = ds.get("Email");
+    isEmployer = ds.get("is Employer");
+    return [name, email, isEmployer];
   }
 }

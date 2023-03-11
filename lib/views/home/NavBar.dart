@@ -1,6 +1,7 @@
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/MentalHealth.dart';
 import 'package:dart_knights/views/home/jobs.dart';
 import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
@@ -28,12 +29,6 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
-  static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Post(),
-    JobsPage(),
-    maps(),
-  ];
   List<String> list = ["Home", "Post", "Jobs", "Maps"];
 
   @override
@@ -48,7 +43,7 @@ class _NavBarState extends State<NavBar> {
     List<Widget> _widgetOptions = <Widget>[
       Home(),
       homeController.isEmployer == true ? EmployerPost() : Post(),
-      Payment(),
+      JobsPage(),
       maps(),
     ];
     return Scaffold(
@@ -58,7 +53,15 @@ class _NavBarState extends State<NavBar> {
           title: Text(list[_selectedIndex]),
           backgroundColor: ResourceColors.primaryColor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MentalHealth()));
+                }, icon: Icon(Icons.health_and_safety_rounded)),
+            IconButton(
+                onPressed: () {
+                },
+                icon: Icon(Icons.notifications)),
           ]),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
