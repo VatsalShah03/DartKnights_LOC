@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
+import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/auth/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -26,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.put(HomeController());
     Future<bool> checkIfDocExists(String docId) async {
       try {
         var collectionRef = FirebaseFirestore.instance.collection('Users');
@@ -51,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passController.text.trim());
+        await homeController.getCurrentUserLocation();
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -88,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           Image.asset(
-            "assets/login-bg.jpg",
+            "assets/login.jpg",
             width: screenWidth,
             height: screenHeight,
             fit: BoxFit.fill,

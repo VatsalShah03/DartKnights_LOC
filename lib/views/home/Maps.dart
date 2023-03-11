@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Maps extends StatefulWidget {
+  const Maps({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Maps> createState() => _MapsState();
 }
 
-class _HomeState extends State<Home> {
+class _MapsState extends State<Maps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("Maps"),
       ),
     );
   }
