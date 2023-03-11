@@ -1,4 +1,4 @@
-
+import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
@@ -14,7 +14,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Jobs.dart';
 
-
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
 
@@ -28,15 +27,10 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
-
-
-
+    Home(),
     Post(),
-    Post(),
-
     Payment(),
     maps(),
-
   ];
 
   @override
@@ -45,6 +39,7 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     homeController.getCurrentUserLocation();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
