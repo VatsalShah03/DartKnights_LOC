@@ -154,9 +154,6 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Razorpay "),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +165,7 @@ class _PaymentState extends State<Payment> {
               child: Column(
                 children: [
                   const Text("Pay Rs.100"),
-                  Text(isPremium.toString() ),
+                  Text(isPremium.toString()),
                 ],
               ),
             )

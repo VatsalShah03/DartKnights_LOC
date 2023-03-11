@@ -1,4 +1,3 @@
-
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
@@ -14,7 +13,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Jobs.dart';
 
-
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
 
@@ -28,16 +26,12 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
-
-
-
     Post(),
     Post(),
-
     Payment(),
     maps(),
-
   ];
+  List<String> list = ["Home", "Post", "Jobs", "Maps"];
 
   @override
   void initState() {
@@ -45,15 +39,17 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     homeController.getCurrentUserLocation();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
           //leading: IconButton(icon: Icons.menu, onPressed: (){Scaffold.},),
+          title: Text(list[_selectedIndex]),
           backgroundColor: ResourceColors.primaryColor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
           ]),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(

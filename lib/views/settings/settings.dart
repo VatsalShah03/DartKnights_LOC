@@ -29,7 +29,7 @@ class _SettingState extends State<Setting> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Colors.green),
+                      color: ResourceColors.primaryColor),
                 ),
                 tiles: <SettingsTile>[
                   SettingsTile.switchTile(
@@ -53,7 +53,7 @@ class _SettingState extends State<Setting> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Colors.green),
+                      color: ResourceColors.primaryColor),
                 ),
                 tiles: <SettingsTile>[
                   SettingsTile(
@@ -71,7 +71,7 @@ class _SettingState extends State<Setting> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Colors.green),
+                      color: ResourceColors.primaryColor),
                 ),
                 tiles: <SettingsTile>[
                   SettingsTile(
