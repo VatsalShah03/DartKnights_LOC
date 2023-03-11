@@ -1,4 +1,5 @@
 
+import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
@@ -31,7 +32,7 @@ class _NavBarState extends State<NavBar> {
 
 
 
-    Post(),
+    Home(),
     Post(),
 
     Payment(),
