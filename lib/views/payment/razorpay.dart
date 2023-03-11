@@ -15,6 +15,8 @@ class Payment extends StatefulWidget {
 class _PaymentState extends State<Payment> {
   final String keyId = "rzp_test_gKANZdsNdLqaQs";
   final String keySecret = "3UFrNGkdLR9apMa3dOUE1jvh";
+  var amountController = TextEditingController();
+  bool isPremium = false;
 
   final _razorpay = Razorpay();
 
@@ -30,12 +32,15 @@ class _PaymentState extends State<Payment> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    print(response);
-    verifySignature(
-      signature: response.signature,
-      paymentId: response.paymentId,
-      orderId: response.orderId,
-    );
+    setState(() {
+      isPremium = true;
+    });
+    // print(response);
+    // verifySignature(
+    //   signature: response.signature,
+    //   paymentId: response.paymentId,
+    //   orderId: response.orderId,
+    // );
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -89,13 +94,13 @@ class _PaymentState extends State<Payment> {
     var options = {
       'key': keyId,
       'amount': 100, //in the smallest currency sub-unit.
-      'name': 'Acme Corp.',
+      'name': 'Param Shah',
       'order_id': orderId, // Generate order_id using Orders API
       'description': 'Fine T-Shirt',
       'timeout': 60 * 5, // in seconds // 5 minutes
       'prefill': {
-        'contact': '9123456789',
-        'email': 'ary@example.com',
+        'contact': '9372692366',
+        'email': 'shaparam03@gmail.com',
       }
     };
     _razorpay.open(options);
@@ -150,7 +155,7 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Razorpay Demo"),
+        title: const Text("Razorpay "),
       ),
       body: Center(
         child: Column(
