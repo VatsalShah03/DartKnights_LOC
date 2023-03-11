@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dart_knights/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
-
 
 class Payment extends StatefulWidget {
   @override
@@ -156,13 +155,12 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
+        backgroundColor: ResourceColors.primaryColor,
         title: Text('Cart'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -243,8 +241,11 @@ class _PaymentState extends State<Payment> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(ResourceColors.secondaryColor)),
               onPressed: () {
-               createOrder();
+                createOrder();
               },
               child: Text('Buy Now'),
             ),

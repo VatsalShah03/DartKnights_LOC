@@ -1,6 +1,7 @@
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
 import 'package:dart_knights/views/settings/settings.dart';
 
@@ -21,23 +22,30 @@ class _NavDrawerState extends State<NavDrawer> {
   HomeController homeController = Get.put(HomeController());
 
   Widget getPremiumNow() {
-    return Card(
-      margin: EdgeInsets.all(8),
-      color: ResourceColors.tertiaryColor,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(children: [
-          SizedBox(
-              height: 80, child: SvgPicture.asset("assets/get_premium.svg")),
-          Text(
-            "Get Premium Now !!",
-            style: TextStyle(color: ResourceColors.primaryColor, fontSize: 25),
-          ),
-          Text(
-            "Click to check benefits",
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
-        ]),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Payment()));
+      },
+      child: Card(
+        margin: EdgeInsets.all(8),
+        color: ResourceColors.tertiaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(children: [
+            SizedBox(
+                height: 80, child: SvgPicture.asset("assets/get_premium.svg")),
+            Text(
+              "Get Premium Now !!",
+              style:
+                  TextStyle(color: ResourceColors.primaryColor, fontSize: 25),
+            ),
+            Text(
+              "Click to check benefits",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ]),
+        ),
       ),
     );
   }
