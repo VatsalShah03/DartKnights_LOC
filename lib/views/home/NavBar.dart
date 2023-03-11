@@ -1,3 +1,4 @@
+import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
@@ -26,7 +27,7 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
-    Post(),
+    Home(),
     Post(),
     Payment(),
     maps(),

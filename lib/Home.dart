@@ -1,3 +1,4 @@
+import 'package:dart_knights/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
@@ -17,9 +18,6 @@ class _HomeState extends State<Home> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
       body: ListView.builder(
           itemCount: 2,
           itemBuilder: (BuildContext context, int index) {
@@ -42,15 +40,23 @@ class _HomeState extends State<Home> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(12),
                         decoration: const BoxDecoration(
-                            color: Colors.black,
+
+                            color: ResourceColors.secondaryColor,
+
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15))),
                         child: Row(
                           children: [
                             const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/person.png")),
+
+                              backgroundColor: ResourceColors.slightWhite,
+                              child: Icon(
+                                Icons.person,
+                                color: ResourceColors.tertiaryColor,
+                              ),
+                            ),
+
                             const SizedBox(
                               width: 8,
                             ),
