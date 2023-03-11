@@ -139,7 +139,7 @@ class _PostState extends State<Post> {
                               "UserName": homeController.name,
                             };
                             await FirebaseFirestore.instance
-                                .collection("Users")
+                                .collection("Posts")
                                 .doc()
                                 .set(data);
                           },

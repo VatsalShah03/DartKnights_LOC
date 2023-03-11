@@ -1,5 +1,6 @@
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/home/jobs.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 
@@ -11,8 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
-import 'Jobs.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class _NavBarState extends State<NavBar> {
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Post(),
-    Payment(),
+    JobsPage(),
     maps(),
   ];
   List<String> list = ["Home", "Post", "Jobs", "Maps"];
