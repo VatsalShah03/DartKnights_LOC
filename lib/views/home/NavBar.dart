@@ -1,6 +1,8 @@
 import 'package:dart_knights/Home.dart';
+import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/home/jobs.dart';
+import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 
@@ -25,6 +27,7 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Post(),
@@ -42,6 +45,12 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      Home(),
+      homeController.isEmployer == true ? EmployerPost() : Post(),
+      Payment(),
+      maps(),
+    ];
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(

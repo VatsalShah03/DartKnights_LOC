@@ -60,6 +60,12 @@ class _PostState extends State<Post> {
                   keyboardType: TextInputType.multiline,
                   maxLines: 7,
                   controller: _descriptionController,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     description = value!;
                   },
@@ -142,6 +148,21 @@ class _PostState extends State<Post> {
                                 .collection("Posts")
                                 .doc()
                                 .set(data);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Successfully added!",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21
+                                  ),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.white,
+                              ),
+                            );
                           },
                           title: Center(
                             child: Text(
