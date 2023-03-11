@@ -165,7 +165,12 @@ class _PaymentState extends State<Payment> {
               onPressed: () {
                 createOrder();
               },
-              child: const Text("Pay Rs.100"),
+              child: Column(
+                children: [
+                  const Text("Pay Rs.100"),
+                  Text(isPremium.toString() ),
+                ],
+              ),
             )
           ],
         ),

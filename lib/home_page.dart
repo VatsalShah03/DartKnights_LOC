@@ -1,3 +1,4 @@
+import 'package:dart_knights/NavBar.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/views/auth/login_page.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasData) {
-              return Payment();
+              return NavBar();
             } else if (snapshot.hasError) {
               return Center(
                 child: Text("An Error Ocurred! "),

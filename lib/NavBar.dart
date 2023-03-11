@@ -1,3 +1,4 @@
+import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -20,7 +21,8 @@ class _NavBarState extends State<NavBar> {
   static  List<Widget> _widgetOptions = <Widget>[
     Home(),
     Post(),
-    Jobs(),
+    Payment(),
+    //Jobs(),
     Maps(),
   ];
   @override
