@@ -195,7 +195,7 @@ class _PostState extends State<Post> {
     var uploadTask = ref.putFile(image!);
     final snapshot = await uploadTask.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
-    print('Dowload link:$urlDownload');
+    print('Download link:$urlDownload');
     return urlDownload;
   }
 }
