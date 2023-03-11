@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
     getCurrentUserLocation() async {
       bool serviceEnabled;
       LocationPermission permission;
@@ -67,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
 
+
     Future<bool> checkIfDocExists(String docId) async {
       try {
         var collectionRef = FirebaseFirestore.instance.collection('Users');
@@ -92,7 +94,10 @@ class _LoginPageState extends State<LoginPage> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passController.text.trim());
-        getCurrentUserLocation();
+
+        HomeController homeController = Get.put(HomeController());
+        await homeController.getCurrentUserLocation();
+
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
