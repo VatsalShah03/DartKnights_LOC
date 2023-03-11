@@ -1,21 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
 
+
+class Payment extends StatefulWidget {
   @override
   State<Payment> createState() => _PaymentState();
 }
 
 class _PaymentState extends State<Payment> {
   final String keyId = "rzp_test_gKANZdsNdLqaQs";
+
   final String keySecret = "3UFrNGkdLR9apMa3dOUE1jvh";
+
   var amountController = TextEditingController();
+
   bool isPremium = false;
 
   final _razorpay = Razorpay();
@@ -35,18 +37,18 @@ class _PaymentState extends State<Payment> {
     setState(() {
       isPremium = true;
     });
-    // print(response);
-    // verifySignature(
-    //   signature: response.signature,
-    //   paymentId: response.paymentId,
-    //   orderId: response.orderId,
-    // );
+    print(response);
+    verifySignature(
+      signature: response.signature,
+      paymentId: response.paymentId,
+      orderId: response.orderId,
+    );
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print(response);
     // Do something when payment fails
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context as BuildContext).showSnackBar(
       SnackBar(
         content: Text(response.message ?? ''),
       ),
@@ -56,7 +58,7 @@ class _PaymentState extends State<Payment> {
   void _handleExternalWallet(ExternalWalletResponse response) {
     print(response);
     // Do something when an external wallet is selected
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context as BuildContext).showSnackBar(
       SnackBar(
         content: Text(response.walletName ?? ''),
       ),
@@ -136,7 +138,7 @@ class _PaymentState extends State<Payment> {
 
     print(res.body);
     if (res.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context as BuildContext).showSnackBar(
         SnackBar(
           content: Text(res.body),
         ),
@@ -155,35 +157,98 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Razorpay "),
+        title: Text('Cart'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 2),
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Monthly Subscription',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        ),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'Unlimited access to all content',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        ),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'No ads',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        ),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'Offline access',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.0),
+                    Text(
+                      'Total amount: \$10.99/month',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                createOrder();
+               createOrder();
               },
-              child: Column(
-                children: [
-                  const Text("Pay Rs.100"),
-                  Text(isPremium.toString() ),
-                ],
-              ),
-            )
+              child: Text('Buy Now'),
+            ),
           ],
         ),
       ),
     );
-  }
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
   }
 }
