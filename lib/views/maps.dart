@@ -27,7 +27,15 @@ class _mapsState extends State<maps> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.getCurrentUserLocation();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    homeController.getCurrentUserLocation();
     return SafeArea(
         child: Scaffold(
       body: StreamBuilder(
