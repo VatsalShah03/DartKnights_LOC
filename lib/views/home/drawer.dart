@@ -1,5 +1,8 @@
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/profile/profile_main.dart';
+import 'package:dart_knights/views/settings/settings.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,7 +60,13 @@ class _NavDrawerState extends State<NavDrawer> {
                       "Profile",
                       style: TextStyle(fontSize: 16),
                     ),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileMain(uid: homeController.user.uid)));
+                    }),
                 ListTile(
                     leading: Icon(
                       Icons.settings,
@@ -67,7 +76,10 @@ class _NavDrawerState extends State<NavDrawer> {
                       "Settings",
                       style: TextStyle(fontSize: 16),
                     ),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Setting()));
+                    }),
                 ListTile(
                   leading: Icon(
                     Icons.logout,
