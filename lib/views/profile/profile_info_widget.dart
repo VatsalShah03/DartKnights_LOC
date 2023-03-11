@@ -1,4 +1,5 @@
 import 'package:dart_knights/constants.dart';
+import 'package:dart_knights/views/profile/editProfile.dart';
 import 'package:flutter/material.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
@@ -48,12 +49,12 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const EditProfile(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfile(),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -97,15 +98,15 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
             children: [
               Expanded(
                 child: Text(
-                  "The Entrepreneurship Cell (E-Cell) of St. Xavier's College is an organization that aims to promote and support entrepreneurship among the students of the college.",
+                  "",
                   style: TextStyle(fontSize: height * 0.014),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 32,
-          ),
+          // const SizedBox(
+          //   height: 32,
+          // ),
           Row(
             children: [
               InkWell(
@@ -123,9 +124,6 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 style: TextStyle(color: Colors.blue),
               )
             ],
-          ),
-          const SizedBox(
-            height: 15,
           ),
         ],
       ),
