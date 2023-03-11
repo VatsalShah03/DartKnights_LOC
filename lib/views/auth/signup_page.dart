@@ -1,10 +1,8 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -14,10 +12,10 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  bool signUpAsAProvider = false;
+  bool signUpAsAnEmployer = false;
   bool isValidEmail(String input) {
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(input);
   }
 
@@ -30,9 +28,19 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController _confirmPassController = TextEditingController();
   TextEditingController aadharCardController = TextEditingController();
   TextEditingController orgController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  Map<String, dynamic> data = {};
 
   Future signUp() async {
+    data["Name"] =
+        _fNameController.text.trim() + " " + _lNameController.text.trim();
+    data["Email"] = _emailController.text.trim();
+    if (signUpAsAnEmployer) {
+      data["Aadhaar Number"] = aadharCardController.text.trim();
+      data["Org Name"] = orgController.text.trim();
+      data["is Employer"] = true;
+    } else {
+      data["is Employer"] = false;
+    }
     showDialog(
         context: context,
         builder: (context) {
@@ -42,11 +50,10 @@ class _SignupPageState extends State<SignupPage> {
         email: _emailController.text.trim(),
         password: _passController.text.trim());
     var User = await FirebaseAuth.instance.currentUser;
-    await FirebaseFirestore.instance.collection('Users').doc(User?.uid).set({
-      "First Name": _fNameController.text.trim(),
-      "Last Name": _lNameController.text.trim(),
-      "Email":_emailController.text.trim(),
-    });
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(User?.uid)
+        .set(data);
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }
@@ -61,7 +68,6 @@ class _SignupPageState extends State<SignupPage> {
     _confirmPassController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                 width: screenWidth,
                 height: screenHeight,
                 decoration:
-                BoxDecoration(color: Colors.grey.shade400.withOpacity(0.1)),
+                    BoxDecoration(color: Colors.grey.shade400.withOpacity(0.1)),
               )),
           AppBar(
             backgroundColor: Colors.transparent,
@@ -140,7 +146,7 @@ class _SignupPageState extends State<SignupPage> {
                                         decoration: InputDecoration(
                                             hintText: "Name",
                                             hintStyle:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                             border: InputBorder.none),
                                       ),
                                     ),
@@ -167,7 +173,7 @@ class _SignupPageState extends State<SignupPage> {
                                         decoration: InputDecoration(
                                             hintText: "Last Name",
                                             hintStyle:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                             border: InputBorder.none),
                                       ),
                                     ),
@@ -203,30 +209,6 @@ class _SignupPageState extends State<SignupPage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
                                 child: TextFormField(
-                                  keyboardType: TextInputType.phone,
-                                  controller: phoneController,
-                                  style: TextStyle(color: Colors.black),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Phone cannot be empty';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText: "Phone",
-                                      hintStyle: TextStyle(color: Colors.black),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              margin: EdgeInsets.only(bottom: 20),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: TextFormField(
                                   controller: _passController,
                                   obscureText: true,
                                   style: TextStyle(color: Colors.black),
@@ -247,7 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 8.0),
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Card(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
@@ -274,69 +256,69 @@ class _SignupPageState extends State<SignupPage> {
                               margin: EdgeInsets.only(bottom: 20),
                             ),
                           ),
-                          signUpAsAProvider
+                          signUpAsAnEmployer
                               ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.only(left: 15.0),
-                                child: TextFormField(
-                                  controller: aadharCardController,
-                                  style: TextStyle(color: Colors.black),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Aadhar Card cannot be empty';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText: "Aadhar Card Number",
-                                      hintStyle:
-                                      TextStyle(color: Colors.black),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              margin: EdgeInsets.only(bottom: 20),
-                            ),
-                          )
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 15.0),
+                                      child: TextFormField(
+                                        controller: aadharCardController,
+                                        style: TextStyle(color: Colors.black),
+                                        validator: (text) {
+                                          if (text == null || text.isEmpty) {
+                                            return 'Aadhar Card cannot be empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            hintText: "Aadhar Card Number",
+                                            hintStyle:
+                                                TextStyle(color: Colors.black),
+                                            border: InputBorder.none),
+                                      ),
+                                    ),
+                                    margin: EdgeInsets.only(bottom: 20),
+                                  ),
+                                )
                               : Container(),
-                          signUpAsAProvider
+                          signUpAsAnEmployer
                               ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.only(left: 15.0),
-                                child: TextFormField(
-                                  controller: orgController,
-                                  style: TextStyle(color: Colors.black),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Org name cannot be empty';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText: "Organization",
-                                      hintStyle:
-                                      TextStyle(color: Colors.black),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              margin: EdgeInsets.only(bottom: 20),
-                            ),
-                          )
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 15.0),
+                                      child: TextFormField(
+                                        controller: orgController,
+                                        style: TextStyle(color: Colors.black),
+                                        validator: (text) {
+                                          if (text == null || text.isEmpty) {
+                                            return 'Org name cannot be empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            hintText: "Organization",
+                                            hintStyle:
+                                                TextStyle(color: Colors.black),
+                                            border: InputBorder.none),
+                                      ),
+                                    ),
+                                    margin: EdgeInsets.only(bottom: 20),
+                                  ),
+                                )
                               : Container(),
                           Padding(
                             padding: EdgeInsets.only(bottom: 8),
                             child: ListTile(
-                              title: Text("Sign Up as a Provider"),
+                              title: Text("Sign Up as an Employer"),
                               leading: Checkbox(
-                                value: signUpAsAProvider,
+                                value: signUpAsAnEmployer,
                                 onChanged: (value) {
                                   setState(() {
-                                    signUpAsAProvider = value!;
+                                    signUpAsAnEmployer = value!;
                                   });
                                 },
                               ),
@@ -353,7 +335,7 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                                 child: Padding(
                                   padding:
-                                  const EdgeInsets.symmetric(vertical: 12),
+                                      const EdgeInsets.symmetric(vertical: 12),
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: Card(
@@ -361,9 +343,9 @@ class _SignupPageState extends State<SignupPage> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Center(
                                             child: Text(
-                                              "Sign Up",
-                                              style: TextStyle(color: Colors.white),
-                                            )),
+                                          "Sign Up",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
                                       ),
                                       color: Colors.grey[700],
                                     ),

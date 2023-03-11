@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isValidEmail(String input) {
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(input);
   }
 
@@ -24,10 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passController = TextEditingController();
   final _formKeyLogin = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
-
     Future<bool> checkIfDocExists(String docId) async {
       try {
         var collectionRef = FirebaseFirestore.instance.collection('Users');
@@ -39,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
         throw e;
       }
     }
-
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -60,23 +57,29 @@ class _LoginPageState extends State<LoginPage> {
         showDialog(
             context: context,
             builder: (context) {
-              return Center(child: Container(
-                  width: MediaQuery.of(context).size.width*0.6,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(e.toString()),
-                      ElevatedButton(
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                          }, child: Text("OK", style: TextStyle(color: Colors.white),))
-                    ],
-                  )));
+              return Center(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white,
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(e.toString()),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                "OK",
+                                style: TextStyle(color: Colors.white),
+                              ))
+                        ],
+                      )));
             });
       }
     }
@@ -96,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: screenWidth,
                 height: screenHeight,
                 decoration:
-                BoxDecoration(color: Colors.grey.shade400.withOpacity(0.1)),
+                    BoxDecoration(color: Colors.grey.shade400.withOpacity(0.1)),
               )),
           SafeArea(
             child: Center(
@@ -172,26 +175,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           margin:
-                          EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                              EdgeInsets.only(bottom: 20, left: 20, right: 20),
                         ),
-                        Center(child: Text("You are a :")),
-                        // Center(
-                        //   child: DropdownButton(
-                        //     value: selectedUser,
-                        //     items: usersList.map((String div) {
-                        //       return DropdownMenuItem(
-                        //         value: div,
-                        //         child: Text(div),
-                        //       );
-                        //     }).toList(),
-                        //     onChanged: (String? newValue) {
-                        //       setState(() {
-                        //         selectedUser = newValue!;
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
-
                         Padding(
                             padding: const EdgeInsets.only(
                                 left: 20, bottom: 20, right: 20),
@@ -208,9 +193,9 @@ class _LoginPageState extends State<LoginPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(
-                                          "Sign In",
-                                          style: TextStyle(color: Colors.white),
-                                        )),
+                                      "Sign In",
+                                      style: TextStyle(color: Colors.white),
+                                    )),
                                   ),
                                   color: Colors.grey[700],
                                 ),
@@ -253,18 +238,24 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                final provider = Provider.of<GoogleSignInProvider>(context,listen:false);
+                                final provider =
+                                    Provider.of<GoogleSignInProvider>(context,
+                                        listen: false);
                                 provider.googleLogin();
-                                final firebaseUser = FirebaseAuth.instance.currentUser!;
-                                bool docExists = await checkIfDocExists(firebaseUser.uid);
+                                final firebaseUser =
+                                    FirebaseAuth.instance.currentUser!;
+                                bool docExists =
+                                    await checkIfDocExists(firebaseUser.uid);
                                 print(docExists);
-                                if(docExists){
-                                }
-                                else{
+                                if (docExists) {
+                                } else {
                                   print(firebaseUser.uid);
-                                  await FirebaseFirestore.instance.collection('Users').doc(firebaseUser.uid).set({
+                                  await FirebaseFirestore.instance
+                                      .collection('Users')
+                                      .doc(firebaseUser.uid)
+                                      .set({
                                     "First Name": provider.user.displayName,
-                                    "Email":provider.user.email,
+                                    "Email": provider.user.email,
                                   });
                                 }
                               },
@@ -277,7 +268,6 @@ class _LoginPageState extends State<LoginPage> {
                                     height: 30,
                                   ),
                                 ),
-
                               ),
                             ),
                             Card(
@@ -289,7 +279,6 @@ class _LoginPageState extends State<LoginPage> {
                                   height: 30,
                                 ),
                               ),
-
                             ),
                           ],
                         ),
