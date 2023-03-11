@@ -1,6 +1,7 @@
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/views/auth/login_page.dart';
 import 'package:dart_knights/views/home/NavBar.dart';
+import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
