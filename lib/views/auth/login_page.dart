@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           Image.asset(
-            "assets/login-bg.jpg",
+            "assets/login.jpg",
             width: screenWidth,
             height: screenHeight,
             fit: BoxFit.fill,
