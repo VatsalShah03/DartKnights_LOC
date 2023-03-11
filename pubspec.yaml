@@ -39,6 +39,7 @@ dependencies:
   get:
   firebase_storage:
   http:
+  razorpay_flutter:
 
 
 
