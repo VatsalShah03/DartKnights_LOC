@@ -37,10 +37,6 @@ class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-        backgroundColor: ResourceColors.primaryColor,
-      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: SingleChildScrollView(

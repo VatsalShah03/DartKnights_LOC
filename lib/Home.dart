@@ -40,19 +40,23 @@ class _HomeState extends State<Home> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(12),
                         decoration: const BoxDecoration(
+
                             color: ResourceColors.secondaryColor,
+
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15))),
                         child: Row(
                           children: [
                             const CircleAvatar(
+
                               backgroundColor: ResourceColors.slightWhite,
                               child: Icon(
                                 Icons.person,
                                 color: ResourceColors.tertiaryColor,
                               ),
                             ),
+
                             const SizedBox(
                               width: 8,
                             ),
