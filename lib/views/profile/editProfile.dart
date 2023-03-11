@@ -1,8 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
+import 'package:dart_knights/models/users.dart';
 import 'package:flutter/material.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
+  const EditProfile(
+      {Key? key,
+      required this.userName,
+      required this.userEmail,
+      required this.uid})
+      : super(key: key);
+  final String userName;
+  final String userEmail;
+  final String uid;
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -10,26 +20,38 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _firstNameController =
-      TextEditingController(text: 'Vinayak');
-  final TextEditingController _lastNameController =
-      TextEditingController(text: "Tendulakar");
-  final TextEditingController _usernameController =
-      TextEditingController(text: "vinayaktendulkar204032");
-  final TextEditingController _educationController =
-      TextEditingController(text: "St. Xavier’s College(Autonomous), Mumbai");
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _educationController = TextEditingController();
+  final TextEditingController _projectsController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _nameController.text = widget.userName;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: ResourceColors.primaryColor,
           iconTheme: IconThemeData(color: Colors.black),
           title: Text(
             "Edit Profile",
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
         ),
         body: SingleChildScrollView(
@@ -41,36 +63,18 @@ class _EditProfileState extends State<EditProfile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        height: 150,
-                        width: 150,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ResourceColors.primaryColor,
-                        ),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: ResourceColors.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -80,17 +84,18 @@ class _EditProfileState extends State<EditProfile> {
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
+                      const SizedBox(height: 16.0),
                       TextFormField(
-                        controller: _firstNameController,
+                        controller: _nameController,
                         decoration: InputDecoration(
-                          labelText: "first name",
+                          labelText: "Name",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
                                   color: ResourceColors.primaryColor,
                                   width: 2)),
-                          hintText: "first name",
+                          hintText: "Name",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -98,16 +103,50 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       const SizedBox(height: 16.0),
                       TextFormField(
-                        controller: _lastNameController,
+                        controller: _educationController,
                         decoration: InputDecoration(
-                          labelText: "last name",
+                          labelText: "Education",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
                                   color: ResourceColors.primaryColor,
                                   width: 2)),
-                          hintText: "last name",
+                          hintText: "Education",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        controller: _projectsController,
+                        decoration: InputDecoration(
+                          labelText: "Projects",
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: ResourceColors.primaryColor,
+                                  width: 2)),
+                          hintText: "Projects",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        controller: _addressController,
+                        decoration: InputDecoration(
+                          labelText: "Address",
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: ResourceColors.primaryColor,
+                                  width: 2)),
+                          hintText: "Address",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -115,70 +154,36 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       const SizedBox(height: 16.0),
                       TextButton(
-                        onPressed: () {
-                          // if (_formKey.currentState.validate()) {
-                          //
-                          // }
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                ResourceColors.primaryColor)),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                                context: context,
+                                builder: (context) => Center(
+                                      child: CircularProgressIndicator(),
+                                    ));
+                            await FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(widget.uid)
+                                .update({
+                              'education': _educationController.text.trim(),
+                              'projects': _projectsController.text.trim(),
+                              'address': _addressController.text.trim()
+                            });
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          }
                         },
                         child: Text(
                           "Submit",
                           style: TextStyle(
-                            color: ResourceColors.primaryColor,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextFormField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    labelStyle: TextStyle(color: Colors.black),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: ResourceColors.primaryColor, width: 2)),
-                    hintText: "Username",
-                    // suffixIcon: IconButton(
-                    //   icon: const Icon(FeatherIcons.refreshCcw),
-                    //   color: Colors.black,
-                    //     color: ResourceColors.primaryColor,
-                    //   onPressed: () {},
-                    // ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                TextFormField(
-                  controller: _educationController,
-                  decoration: InputDecoration(
-                    labelText: "Educational Institute",
-                    labelStyle: TextStyle(color: Colors.black),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: ResourceColors.primaryColor, width: 2)),
-                    hintText: "Educational Institute",
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.abc),
-                      color: Colors.black,
-                      //  color: ResourceColors.primaryColor,
-                      onPressed: () {},
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                   ),
                 ),
               ],

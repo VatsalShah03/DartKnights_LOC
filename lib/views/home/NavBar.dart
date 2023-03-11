@@ -28,12 +28,12 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
-  static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Post(),
-    JobsPage(),
-    maps(),
-  ];
+  // static List<Widget> _widgetOptions = <Widget>[
+  //   Home(),
+  //   Post(),
+  //   JobsPage(),
+  //   maps(),
+  // ];
   List<String> list = ["Home", "Post", "Jobs", "Maps"];
 
   @override
@@ -41,14 +41,16 @@ class _NavBarState extends State<NavBar> {
     // TODO: implement initState
     super.initState();
     homeController.getCurrentUserLocation();
+    homeController.getUserDetails();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(homeController.isEmployer);
     List<Widget> _widgetOptions = <Widget>[
       Home(),
       homeController.isEmployer == true ? EmployerPost() : Post(),
-      Payment(),
+      JobsPage(),
       maps(),
     ];
     return Scaffold(
