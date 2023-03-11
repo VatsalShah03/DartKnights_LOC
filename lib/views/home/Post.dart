@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -127,8 +129,9 @@ class _PostState extends State<Post> {
                        Padding(
                          padding: EdgeInsets.all(10),
                          child: ListTile(
-                           onTap: () {
-
+                           onTap: () async {
+                             Map <String,dynamic> data = {"Description":_descriptionController.text.trim(),"url":await uploadFile()};
+                             await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("post").doc().set(data);
                            },
                            title: Center(
                              child: Text(
@@ -185,6 +188,7 @@ class _PostState extends State<Post> {
     final snapshot = await uploadTask.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
     print('Dowload link:$urlDownload');
+    return urlDownload;
   }
 
 }

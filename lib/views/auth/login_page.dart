@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.put(HomeController());
+    //HomeController homeController = Get.put(HomeController());
     Future<bool> checkIfDocExists(String docId) async {
       try {
         var collectionRef = FirebaseFirestore.instance.collection('Users');
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passController.text.trim());
-        await homeController.getCurrentUserLocation();
+        //await homeController.getCurrentUserLocation();
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
