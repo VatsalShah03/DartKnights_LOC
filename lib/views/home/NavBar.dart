@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../NewsPage.dart';
 import 'Jobs.dart';
 
 class NavBar extends StatefulWidget {
@@ -31,6 +32,7 @@ class _NavBarState extends State<NavBar> {
     Post(),
     Payment(),
     maps(),
+
   ];
 
   @override
@@ -48,7 +50,13 @@ class _NavBarState extends State<NavBar> {
           //leading: IconButton(icon: Icons.menu, onPressed: (){Scaffold.},),
           backgroundColor: ResourceColors.primaryColor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+            IconButton(onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FlutterNews()));
+            }, icon: Icon(Icons.newspaper)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
           ]),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class Jobs extends StatefulWidget {
   const Jobs({Key? key}) : super(key: key);
 
@@ -14,6 +15,10 @@ class _JobsState extends State<Jobs> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Jobs"),
+        actions: [
+
+
+        ],
       ),
     );
   }

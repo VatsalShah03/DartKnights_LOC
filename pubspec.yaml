@@ -50,12 +50,9 @@ dependencies:
   geocoding: ^2.0.5
   settings_ui:
   flutter_svg:
-  
-
-
-
-
-
+  hmssdk_flutter:
+  permission_handler:
+  url_launcher: ^6.1.9
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

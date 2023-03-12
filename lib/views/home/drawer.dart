@@ -3,6 +3,7 @@ import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
 import 'package:dart_knights/views/settings/settings.dart';
+import 'package:dart_knights/views/videoCalling/VideoCall.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +119,23 @@ class _NavDrawerState extends State<NavDrawer> {
                     final provider = Provider.of<GoogleSignInProvider>(context,
                         listen: false);
                     provider.logout();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                  title: Text(
+                    "Video Call",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                VideoCall()));
                   },
                 ),
                 Spacer(),
