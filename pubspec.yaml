@@ -50,7 +50,7 @@ dependencies:
   geocoding: ^2.0.5
   settings_ui:
   flutter_svg:
-  
+  url_launcher: ^6.1.10
 
 
 
