@@ -46,7 +46,6 @@ class _NavBarState extends State<NavBar> {
       Home(),
       homeController.isEmployer == true ? EmployerPost() : Post(),
       JobsPage(),
-      JobsPage(),
       maps(),
     ];
     return Scaffold(
