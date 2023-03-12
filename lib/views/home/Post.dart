@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../auth/notification_api.dart';
+
 class Post extends StatefulWidget {
   const Post({Key? key}) : super(key: key);
 
@@ -44,6 +46,38 @@ class _PostState extends State<Post> {
             children: [
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelStyle: TextStyle(color: Colors.black),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                            color: ResourceColors.primaryColor, width: 2)),
+                    hintText: "Let Others Know Your Experience!",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    // prefixIcon: Icon(Icons.person,color: ResourceColors.black,),
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 14,
+                  controller: _descriptionController,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    description = value!;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 height: 160,
                 decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.black),
@@ -72,86 +106,67 @@ class _PostState extends State<Post> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 40,
-              ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.black),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: ResourceColors.primaryColor, width: 2)),
-                    hintText: "Let Others Know Your Experience!",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // prefixIcon: Icon(Icons.person,color: ResourceColors.black,),
-                  ),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 14,
-                  controller: _descriptionController,
-                  validator: (text) {
-                    if (text == null || text.isEmpty) {
-                      return 'Description cannot be empty';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    description = value!;
-                  },
-                ),
-              ),
-              Container(
-                height: 32,
-                margin: EdgeInsets.only(top: 15),
-                width: 150,
-                decoration: BoxDecoration(
-                  color: ResourceColors.tertiaryColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
                 child: Center(
-                  child: InkWell(
-                    child: Text(
-                      "Post",
-                      style: TextStyle(
-                        fontFamily: 'Outfit',
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 25,
                       ),
-                    ),
-                    onTap: () async {
-                      Map<String, dynamic> data = {
-                        "Description": _descriptionController.text.trim(),
-                        "url": await uploadFile(),
-                        "uid": FirebaseAuth.instance.currentUser!.uid,
-                        "UserName": homeController.name,
-                      };
-                      await FirebaseFirestore.instance
-                          .collection("Posts")
-                          .doc()
-                          .set(data);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            "Successfully added!",
-                            style: TextStyle(
-                                color: Colors.black,
-                                letterSpacing: 1.5,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 21),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: ListTile(
+                          onTap: () async {
+                            Map<String, dynamic> data = {
+                              "Description": _descriptionController.text.trim(),
+                              "url": await uploadFile(),
+                              "uid": FirebaseAuth.instance.currentUser!.uid,
+                              "UserName": homeController.name,
+                            };
+                            NotificationApi.showNotification(
+                                title: homeController.name,
+                                body: _descriptionController.text.trim(),
+                                payload: "payload");
+
+                            await FirebaseFirestore.instance
+                                .collection("Posts")
+                                .doc()
+                                .set(data);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Successfully added!",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.white,
+                              ),
+                            );
+                          },
+                          title: Center(
+                            child: Text(
+                              "Post",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  letterSpacing: 2),
+                            ),
                           ),
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.white,
+                          tileColor: ResourceColors.tertiaryColor,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(width: 2),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

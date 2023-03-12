@@ -4,8 +4,6 @@ import 'package:dart_knights/models/jobs.dart';
 import 'package:flutter/material.dart';
 
 
-
-
 class JobsPage extends StatefulWidget {
   const JobsPage({super.key});
 
