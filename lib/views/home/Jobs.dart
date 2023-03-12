@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import '../../controllers/home_controller.dart';
 
 
-
-
 class JobsPage extends StatefulWidget {
   const JobsPage({super.key});
 

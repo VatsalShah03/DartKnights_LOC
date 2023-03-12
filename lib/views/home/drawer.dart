@@ -3,6 +3,8 @@ import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/Donation.dart';
+import 'package:dart_knights/views/nearby_devices/example/MainPage.dart';
+import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
 import 'package:dart_knights/views/settings/settings.dart';
 import 'package:dart_knights/views/videoCalling/VideoCall.dart';
@@ -75,15 +77,8 @@ class _NavDrawerState extends State<NavDrawer> {
                 UserAccountsDrawerHeader(
                   accountName: Text(snapshot.data![0]),
                   accountEmail: Text(snapshot.data![1]),
-                  currentAccountPicture: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFjZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80',
-                        width: 90,
-                        height: 90,
-                      ),
-                    ),
-                  ),
+                  currentAccountPicture:
+                      CircleAvatar(child: Icon(Icons.person)),
                   decoration: BoxDecoration(
                       color: Colors.blueGrey,
                       image: DecorationImage(
@@ -120,38 +115,38 @@ class _NavDrawerState extends State<NavDrawer> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Setting()));
                     }),
-                ListTile(
-                  leading: Icon(
-                    Icons.video_camera_front,
-                    color: Colors.blueGrey.shade900,
-                  ),
-                  title: Text(
-                    "Video Call",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onTap: () {
-                    print(homeController.isPremium!);
-                    snapshot.data[3]
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VideoCall()))
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                "Sorry! You have to avail premium to enable this feature. Do so by clicking on the hamburger icon located at top left.",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    letterSpacing: 1.5,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 21),
-                              ),
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.white,
-                            ),
-                          );
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.video_camera_front,
+                //     color: Colors.blueGrey.shade900,
+                //   ),
+                //   title: Text(
+                //     "Video Call",
+                //     style: TextStyle(fontSize: 16),
+                //   ),
+                //   onTap: () {
+                //     print(homeController.isPremium!);
+                //     snapshot.data[3]
+                //         ? Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => VideoCall()))
+                //         : ScaffoldMessenger.of(context).showSnackBar(
+                //             SnackBar(
+                //               content: Text(
+                //                 "Sorry! You have to avail premium to enable this feature. Do so by clicking on the hamburger icon located at top left.",
+                //                 style: TextStyle(
+                //                     color: Colors.black,
+                //                     letterSpacing: 1.5,
+                //                     fontWeight: FontWeight.bold,
+                //                     fontSize: 21),
+                //               ),
+                //               behavior: SnackBarBehavior.floating,
+                //               backgroundColor: Colors.white,
+                //             ),
+                //           );
+                //   },
+                // ),
                 ListTile(
                     leading: Icon(
                       Icons.water_drop,
@@ -180,8 +175,37 @@ class _NavDrawerState extends State<NavDrawer> {
                     provider.logout();
                   },
                 ),
-                Spacer(),
-                getPremiumNow()
+                ListTile(
+                  leading: Icon(
+                    Icons.bluetooth,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                  title: Text(
+                    "Nearby Devices",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainPage()));
+                  },
+                ),
+                SizedBox(height: 210,),
+                //getPremiumNow()
+                ListTile(
+                    leading: Icon(
+                      Icons.monetization_on,
+                      color: ResourceColors.secondaryColor,
+                    ),
+                    title: Text(
+                      "Try Premium",
+                      style: TextStyle(fontSize: 16,
+                      color: ResourceColors.secondaryColor,
+                      fontWeight: FontWeight.w900),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => Payment()));
+                    }),
               ],
             );
           }),

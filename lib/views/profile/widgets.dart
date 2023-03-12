@@ -6,7 +6,11 @@ import 'package:readmore/readmore.dart';
 class EventsWidget extends StatefulWidget {
   const EventsWidget({
     Key? key,
+    required this.imgUrl,
+    required this.message,
   }) : super(key: key);
+  final String imgUrl;
+  final String message;
 
   @override
   State<EventsWidget> createState() => _EventsWidgetState();
@@ -31,7 +35,7 @@ class _EventsWidgetState extends State<EventsWidget> {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Image.asset(
-                    "assets/image 12.png",
+                    widget.imgUrl,
                     height: width * 0.35,
                     width: width * 0.35,
                     fit: BoxFit.cover,
@@ -42,11 +46,9 @@ class _EventsWidgetState extends State<EventsWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Alumni Consultancy",
-                  style: TextStyle(
-                      fontSize: height * 0.02,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
+                  widget.message,
+                  style:
+                      TextStyle(fontSize: height * 0.017, color: Colors.black),
                 ),
               ],
             ))

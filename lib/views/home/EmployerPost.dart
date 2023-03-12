@@ -49,7 +49,7 @@ class _EmployerPostState extends State<EmployerPost> {
 
   void onClickedNotification(String? payload)=>
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context)=> NotificationPage(payload: payload!),
+          builder: (context)=> NotificationPage(),
       ));
 
   @override
