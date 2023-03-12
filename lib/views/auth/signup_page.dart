@@ -77,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
       body: Stack(
         children: [
           Image.asset(
-            "Assets/login.jpg",
+            "assets/login.jpg",
             width: screenWidth,
             height: screenHeight,
             fit: BoxFit.fill,

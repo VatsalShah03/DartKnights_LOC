@@ -1,26 +1,26 @@
 import 'package:dart_knights/constants.dart';
+import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/profile/editProfile.dart';
+import 'package:dart_knights/views/profile/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
   const ProfileInfoWidget(
-      {super.key,
-      required this.name,
-      required this.qualification,
-      required this.education,
-      required this.address,
-      required this.email});
+      {super.key, required this.name, required this.email, required this.uid});
   final String email;
   final String name;
-  final String qualification;
-  final String education;
-  final String address;
+  final String uid;
 
   @override
   State<ProfileInfoWidget> createState() => _ProfileInfoWidgetState();
 }
 
 class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
+  HomeController homeController = Get.put(HomeController());
+  String? education;
+  ProfileController profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -52,7 +52,11 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const EditProfile(),
+                        builder: (context) => EditProfile(
+                          userName: widget.name,
+                          userEmail: widget.email,
+                          uid: homeController.user.uid,
+                        ),
                       ),
                     );
                   },
@@ -82,31 +86,58 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
               const SizedBox(
                 width: 8,
               ),
-              Expanded(
-                child: Text(
-                  widget.email,
-                  style: TextStyle(
-                      fontSize: height * 0.016, fontWeight: FontWeight.w500),
-                ),
+              Text(
+                widget.email,
+                style: TextStyle(
+                    fontSize: height * 0.016, fontWeight: FontWeight.w500),
               )
             ],
           ),
           const SizedBox(
             height: 8,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "",
-                  style: TextStyle(fontSize: height * 0.014),
+          if (profileController.education != null)
+            Row(
+              children: [
+                const Icon(
+                  Icons.book,
+                  size: 20,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  profileController.education!,
+                  style: TextStyle(
+                      fontSize: height * 0.016, fontWeight: FontWeight.w500),
+                )
+              ],
+            ),
+          const SizedBox(
+            height: 8,
           ),
-          // const SizedBox(
-          //   height: 32,
-          // ),
+          if (profileController.address != null)
+            Row(
+              children: [
+                const Icon(
+                  Icons.location_city,
+                  size: 20,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: Text(
+                    profileController.address!,
+                    style: TextStyle(
+                        fontSize: height * 0.016, fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          const SizedBox(
+            height: 8,
+          ),
           Row(
             children: [
               InkWell(
@@ -120,7 +151,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 width: 10,
               ),
               const Text(
-                "linktr.ee/ecell.xaviers",
+                "linktr.ee/employer1",
                 style: TextStyle(color: Colors.blue),
               )
             ],

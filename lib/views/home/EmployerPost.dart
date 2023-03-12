@@ -3,13 +3,18 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/home/Notification_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'package:image_picker/image_picker.dart';
+
+import '../auth/notification_api.dart';
+import '../auth/notification_api.dart';
 
 class EmployerPost extends StatefulWidget {
   const EmployerPost({Key? key}) : super(key: key);
@@ -30,7 +35,22 @@ class _EmployerPostState extends State<EmployerPost> {
   String experience = "";
   String description = "";
   String role = "";
-  
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listnerNotifications();
+  }
+
+  void listnerNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload)=>
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context)=> NotificationPage(payload: payload!),
+      ));
 
   @override
   void dispose() {
@@ -233,6 +253,13 @@ class _EmployerPostState extends State<EmployerPost> {
                                 .collection("Jobs")
                                 .doc()
                                 .set(data);
+
+                            NotificationApi.showNotification(
+                              title: homeController.name,
+                              body: _descriptionController.text.trim(),
+                              payload: "payload"
+                            );
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
