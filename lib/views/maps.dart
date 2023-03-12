@@ -40,7 +40,7 @@ class _mapsState extends State<maps> {
     return SafeArea(
         child: Scaffold(
       body: StreamBuilder(
-          stream: _readEmplyersLocation(),
+          stream: _readEmployersLocation(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -62,16 +62,66 @@ class _mapsState extends State<maps> {
             for (int i = 0; i < snapshot.data!.length; i++) {
               print(snapshot.data![i].latitude!);
               if (snapshot.data![i].isEmployer == true) {
-                _markers.add(Marker(
-                    markerId: MarkerId(snapshot.data![i].id!),
-                    position: LatLng(snapshot.data![i].latitude!,
-                        snapshot.data![i].longitude!)));
+                _markers.add(
+                  Marker(
+                      markerId: MarkerId(snapshot.data![i].id!),
+                      position: LatLng(snapshot.data![i].latitude!,
+                          snapshot.data![i].longitude!),
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Container(
+                                height: 200,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text(
+                                        snapshot.data![i].orgName!,
+                                        style: TextStyle(
+                                            fontSize: 22.00,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      Text(
+                                        snapshot.data![i].Name,
+                                        style: TextStyle(
+                                            fontSize: 17.00,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        snapshot.data![i].Email,
+                                        style: TextStyle(
+                                            fontSize: 17.00,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(30),
+                            ),
+                          ),
+                        );
+                      },
+                      infoWindow: InfoWindow(
+                          title: snapshot.data![i].orgName!,
+                          snippet: "Hiring")),
+                );
               } else if (snapshot.data![i].id! == user!.uid) {
                 _markers.add(Marker(
-                    markerId: MarkerId(snapshot.data![i].id!),
-                    position: LatLng(snapshot.data![i].latitude!,
-                        snapshot.data![i].longitude!),
-                    icon: BitmapDescriptor.defaultMarkerWithHue(210)));
+                  markerId: MarkerId(snapshot.data![i].id!),
+                  position: LatLng(snapshot.data![i].latitude!,
+                      snapshot.data![i].longitude!),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(210),
+                ));
               }
             }
             return Container(
@@ -86,14 +136,13 @@ class _mapsState extends State<maps> {
                 markers: _markers,
                 circles: {
                   Circle(
-                    circleId: CircleId(user!.uid),
-                    center: LatLng(homeController.position!.latitude,
-                        homeController.position!.longitude),
-                    radius: 750,
-                    fillColor: Colors.green.withOpacity(0.5),
-                    strokeColor: Colors.green.withOpacity(0.5),
-                    strokeWidth: 1
-                  )
+                      circleId: CircleId(user!.uid),
+                      center: LatLng(homeController.position!.latitude,
+                          homeController.position!.longitude),
+                      radius: 750,
+                      fillColor: Colors.green.withOpacity(0.5),
+                      strokeColor: Colors.green.withOpacity(0.5),
+                      strokeWidth: 1)
                 },
               ),
             );
@@ -101,7 +150,7 @@ class _mapsState extends State<maps> {
     ));
   }
 
-  Stream<List<Users>>? _readEmplyersLocation() {
+  Stream<List<Users>>? _readEmployersLocation() {
     try {
       //print(position);
       return FirebaseFirestore.instance.collection("Users").snapshots().map(

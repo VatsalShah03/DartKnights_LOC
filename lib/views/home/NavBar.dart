@@ -1,5 +1,10 @@
 import 'package:dart_knights/Home.dart';
+import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/MentalHealth.dart';
+import 'package:dart_knights/views/home/Jobs.dart';
+
+import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 
@@ -12,8 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+
 import '../../NewsPage.dart';
-import 'Jobs.dart';
+
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -27,35 +33,50 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-  static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Post(),
-    Payment(),
-    maps(),
 
-  ];
+
+  List<String> list = ["Home", "Post", "Jobs", "Maps"];
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     homeController.getCurrentUserLocation();
+    homeController.getUserDetails();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(homeController.isEmployer);
+    List<Widget> _widgetOptions = <Widget>[
+      Home(),
+      homeController.isEmployer == true ? EmployerPost() : Post(),
+      JobsPage(),
+      maps(),
+    ];
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
           //leading: IconButton(icon: Icons.menu, onPressed: (){Scaffold.},),
+          title: Text(list[_selectedIndex]),
           backgroundColor: ResourceColors.primaryColor,
           actions: [
+
             IconButton(onPressed: (){
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => FlutterNews()));
             }, icon: Icon(Icons.newspaper)),
+
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MentalHealth()));
+                },
+                icon: Icon(Icons.health_and_safety_rounded)),
+
             IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
           ]),
       body: _widgetOptions.elementAt(_selectedIndex),

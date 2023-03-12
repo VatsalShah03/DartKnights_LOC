@@ -21,7 +21,10 @@ class _ProfileMainState extends State<ProfileMain>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 2, initialIndex: 0, vsync: this);
+    _controller = TabController(
+        length: (profileController.isEmployer == false) ? 1 : 2,
+        initialIndex: 0,
+        vsync: this);
   }
 
   @override
@@ -33,8 +36,10 @@ class _ProfileMainState extends State<ProfileMain>
         future: profileController.getUserDetails(widget.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
           return Scaffold(
@@ -64,11 +69,9 @@ class _ProfileMainState extends State<ProfileMain>
                         collapsedHeight: height * 0.52,
                         expandedHeight: height * 0.52,
                         flexibleSpace: ProfileInfoWidget(
-                          address: 'Sample Address',
+                          uid: profileController.user.uid,
                           name: profileController.name!,
                           email: profileController.email!,
-                          education: "zcxzdcdsffsdz",
-                          qualification: "zxczsdsdzc",
                         )),
                     SliverPersistentHeader(
                       delegate: MyDelegate(
@@ -89,9 +92,10 @@ class _ProfileMainState extends State<ProfileMain>
                               Tab(
                                 text: "Posts",
                               ),
-                              Tab(
-                                text: "Previous Jobs",
-                              ),
+                              if (profileController.isEmployer == false)
+                                Tab(
+                                  text: "Previous Jobs",
+                                ),
                             ]),
                       ),
                       floating: true,
@@ -99,9 +103,11 @@ class _ProfileMainState extends State<ProfileMain>
                     )
                   ];
                 },
-                body: TabBarView(
-                    controller: _controller,
-                    children: const [ProfilePosts(), ProfilePreviousJobs()]),
+                body: TabBarView(controller: _controller, children: [
+                  ProfilePosts(),
+                  if (profileController.isEmployer == false)
+                    ProfilePreviousJobs()
+                ]),
               ));
         });
   }

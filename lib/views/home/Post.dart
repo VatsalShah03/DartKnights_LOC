@@ -60,6 +60,12 @@ class _PostState extends State<Post> {
                   keyboardType: TextInputType.multiline,
                   maxLines: 14,
                   controller: _descriptionController,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     description = value!;
                   },
@@ -117,9 +123,24 @@ class _PostState extends State<Post> {
                               "UserName": homeController.name,
                             };
                             await FirebaseFirestore.instance
-                                .collection("Users")
+                                .collection("Posts")
                                 .doc()
                                 .set(data);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Successfully added!",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21
+                                  ),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.white,
+                              ),
+                            );
                           },
                           title: Center(
                             child: Text(
@@ -173,7 +194,7 @@ class _PostState extends State<Post> {
     var uploadTask = ref.putFile(image!);
     final snapshot = await uploadTask.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
-    print('Dowload link:$urlDownload');
+    print('Download link:$urlDownload');
     return urlDownload;
   }
 }
