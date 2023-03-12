@@ -64,7 +64,7 @@ class PreviousJobsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(
@@ -77,51 +77,42 @@ class PreviousJobsWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          height: 65,
-                          width: 65,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: AssetImage(
-                                previousJobs.companyLogo,
-                              ),
+                      Container(
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image: AssetImage(
+                              previousJobs.companyLogo,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        flex: 6,
-                        child: Column(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  previousJobs.companyName,
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.black),
-                                ),
-                                const SizedBox(height: 5.0),
-                                Text(
-                                  previousJobs.position,
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                      Column(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                previousJobs.companyName,
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.black),
+                              ),
+                              const SizedBox(height: 5.0),
+                              Text(
+                                previousJobs.position,
+                                style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black),
+                              )
+                            ],
+                          ),
+                        ],
                       )
                     ],
                   ),

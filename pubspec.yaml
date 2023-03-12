@@ -53,8 +53,10 @@ dependencies:
   firebase_messaging:
   flutter_local_notifications: ^13.0.0
   rxdart: 
-  
 
+  hmssdk_flutter:
+  permission_handler:
+  url_launcher: ^6.1.9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

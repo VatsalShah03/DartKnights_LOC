@@ -3,8 +3,12 @@ import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/models/jobs.dart';
 import 'package:flutter/material.dart';
 
+
+
+
 class JobsPage extends StatefulWidget {
   const JobsPage({super.key});
+
 
   @override
   State<JobsPage> createState() => _JobsPageState();
@@ -34,7 +38,7 @@ class _JobsPageState extends State<JobsPage> {
                 itemBuilder: (context, index) {
                   Jobs job = snapshot.data![index];
                   return Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 5, 16, 12),
                       child: Container(
                         width: double.infinity,
                         constraints: BoxConstraints(
@@ -138,6 +142,7 @@ class _JobsPageState extends State<JobsPage> {
                       ));
                 });
           }),
+
     );
   }
 }
