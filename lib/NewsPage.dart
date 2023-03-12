@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'models/NewsModel.dart';
 
-
 class FlutterNews extends StatefulWidget {
   const FlutterNews({Key? key}) : super(key: key);
 
@@ -42,51 +41,50 @@ class _FlutterNewsState extends State<FlutterNews> {
   //   }
   // }
 
-  Future<NewsModel> getNewsApi() async{
-    final response = await http.get(Uri.parse('https://newsapi.org/v2/everything?q=Business&apiKey=baea8a5de1a74cfc93627e7a4ca3a4d4'));
+  Future<NewsModel> getNewsApi() async {
+    final response = await http.get(Uri.parse(
+        'https://newsapi.org/v2/everything?q=Business&apiKey=baea8a5de1a74cfc93627e7a4ca3a4d4'));
     var data = jsonDecode(response.body.toString());
-    if(response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       return NewsModel.fromJson(data);
-    }
-    else
-    {
+    } else {
       return NewsModel.fromJson(data);
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text("  News"),
-        backgroundColor:ResourceColors.primaryColor,
-      ),
+    return Scaffold(
       body: Column(
         children: [
-
           Expanded(
             child: FutureBuilder(
               future: getNewsApi(),
-              builder: (context,snapshot) {
-                if(snapshot.hasData){
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
                   return ListView.builder(
                       itemCount: snapshot.data!.articles!.length,
-                      itemBuilder: (context,index)
-                      {
+                      itemBuilder: (context, index) {
                         return RefreshIndicator(
-                          onRefresh: () async { await getNewsApi(); },
+                          onRefresh: () async {
+                            await getNewsApi();
+                          },
                           child: Column(
                             children: [
                               GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     //_launchURL(snapshot.data!.articles![index].url.toString());
-                                    _makeSocialMediaRequest(snapshot.data!.articles![index].url.toString());
+                                    _makeSocialMediaRequest(snapshot
+                                        .data!.articles![index].url
+                                        .toString());
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 22, vertical: 10),
                                     //height: MediaQuery.of(context).size.height*.3,
                                     height: 280,
-                                    width: MediaQuery.of(context).size.width*1,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1,
                                     decoration: BoxDecoration(
                                         color: Colors.black,
                                         borderRadius: BorderRadius.circular(15),
@@ -106,23 +104,30 @@ class _FlutterNewsState extends State<FlutterNews> {
                                               Colors.black.withOpacity(0.4),
                                               BlendMode.multiply,
                                             ),
-                                            image: NetworkImage(snapshot.data!.articles![index].urlToImage.toString()),fit: BoxFit.cover)
-                                    ),
+                                            image: NetworkImage(snapshot.data!
+                                                .articles![index].urlToImage
+                                                .toString()),
+                                            fit: BoxFit.cover)),
                                     child: Stack(
                                       children: [
                                         Align(
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 5.0),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 5.0),
                                             child: Text(
-                                              snapshot.data!.articles![index].title.toString(),
+                                              snapshot
+                                                  .data!.articles![index].title
+                                                  .toString(),
                                               style:
-                                              // TextStyle(
-                                              //   color: Colors.white,
-                                              //   fontSize: 24,
-                                              //   fontWeight: FontWeight.w900,
-                                              //   fontStyle: FontStyle.italic,
-                                              // ),
-                                              GoogleFonts.abel(color: Colors.white,fontSize: 24),
+                                                  // TextStyle(
+                                                  //   color: Colors.white,
+                                                  //   fontSize: 24,
+                                                  //   fontWeight: FontWeight.w900,
+                                                  //   fontStyle: FontStyle.italic,
+                                                  // ),
+                                                  GoogleFonts.abel(
+                                                      color: Colors.white,
+                                                      fontSize: 24),
                                               //overflow: TextOverflow.ellipsis,
                                               //maxLines: 2,
                                               textAlign: TextAlign.center,
@@ -132,19 +137,18 @@ class _FlutterNewsState extends State<FlutterNews> {
                                         ),
                                       ],
                                     ),
-                                  )
-                              )
+                                  ))
                             ],
                           ),
                         );
-
                       });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                else
-                {
-                  return Text("Loading");
-                }
-              },),
+              },
+            ),
           )
         ],
       ),

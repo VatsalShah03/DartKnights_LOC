@@ -22,7 +22,7 @@ class _ProfileMainState extends State<ProfileMain>
   void initState() {
     super.initState();
     _controller = TabController(
-        length: (profileController.isEmployer == false) ? 1 : 2,
+        length: (profileController.isEmployer == false) ? 2 : 1,
         initialIndex: 0,
         vsync: this);
   }

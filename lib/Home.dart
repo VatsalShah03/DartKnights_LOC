@@ -94,16 +94,14 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Image(
-                              image: NetworkImage(
-                                post.url,
-                              ),
-                              height: width * 0.9,
-                              width: double.infinity,
-                              fit: BoxFit.fill,
-                            ),
+                          Image.network(
+                            post.url,
+                            height: width * 0.9,
+                            width: double.infinity,
+                            fit: BoxFit.fill,
+                          ),
+                          Divider(
+                            color: Colors.black,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(12.0),

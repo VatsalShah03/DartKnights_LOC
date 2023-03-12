@@ -14,7 +14,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   Stream<List<Jobs>> getJobs() {
     return FirebaseFirestore.instance.collection("Jobs").snapshots().map(
-            (snapshot) =>
+        (snapshot) =>
             snapshot.docs.map((doc) => Jobs.fromMap(doc.data())).toList());
   }
 
@@ -22,6 +22,7 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ResourceColors.primaryColor,
         title: Text("Notifications"),
       ),
       body: StreamBuilder(
@@ -58,23 +59,23 @@ class _NotificationPageState extends State<NotificationPage> {
                         ),
                         child: Padding(
                           padding:
-                          EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                              EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                height: 85,
+                                  height: 85,
                                   width: 70,
-                                  child:
-                                  Image(image: AssetImage("assets/flutter_icon.png"))
-                              ),
+                                  child: Image(
+                                      image: AssetImage(
+                                          "assets/flutter_icon.png"))),
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 4),
                                     child: Text(
                                       'Company Name',
                                       style: TextStyle(
@@ -85,8 +86,8 @@ class _NotificationPageState extends State<NotificationPage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 12),
                                     child: Text(
                                       job.Description,
                                       style: TextStyle(
@@ -104,7 +105,6 @@ class _NotificationPageState extends State<NotificationPage> {
                       ));
                 });
           }),
-
     );
   }
 }

@@ -85,7 +85,7 @@ class _PostState extends State<Post> {
                 ),
                 child: Center(
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       pickImage(ImageSource.gallery);
                     },
                     child: Column(
@@ -106,7 +106,6 @@ class _PostState extends State<Post> {
                   ),
                 ),
               ),
-
               Container(
                 child: Center(
                   child: Column(
@@ -127,8 +126,7 @@ class _PostState extends State<Post> {
                             NotificationApi.showNotification(
                                 title: homeController.name,
                                 body: _descriptionController.text.trim(),
-                                payload: "payload"
-                            );
+                                payload: "payload");
 
                             await FirebaseFirestore.instance
                                 .collection("Posts")
@@ -142,8 +140,7 @@ class _PostState extends State<Post> {
                                       color: Colors.black,
                                       letterSpacing: 1.5,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 21
-                                  ),
+                                      fontSize: 21),
                                 ),
                                 behavior: SnackBarBehavior.floating,
                                 backgroundColor: Colors.white,

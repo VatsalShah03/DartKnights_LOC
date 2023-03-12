@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/nearby_devices/example/MainPage.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
 import 'package:dart_knights/views/settings/settings.dart';
@@ -71,15 +72,8 @@ class _NavDrawerState extends State<NavDrawer> {
                 UserAccountsDrawerHeader(
                   accountName: Text(snapshot.data![0]),
                   accountEmail: Text(snapshot.data![1]),
-                  currentAccountPicture: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFjZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80',
-                        width: 90,
-                        height: 90,
-                      ),
-                    ),
-                  ),
+                  currentAccountPicture:
+                      CircleAvatar(child: Icon(Icons.person)),
                   decoration: BoxDecoration(
                       color: Colors.blueGrey,
                       image: DecorationImage(
@@ -133,19 +127,16 @@ class _NavDrawerState extends State<NavDrawer> {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.logout,
+                    Icons.bluetooth,
                     color: Colors.blueGrey.shade900,
                   ),
                   title: Text(
-                    "Video Call",
+                    "Nearby Devices",
                     style: TextStyle(fontSize: 16),
                   ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                VideoCall()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainPage()));
                   },
                 ),
                 Spacer(),
