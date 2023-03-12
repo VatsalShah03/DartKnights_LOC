@@ -33,7 +33,10 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.grey,
+                child: Icon(
+                  Icons.person,
+                  size: width * 0.17,
+                ),
                 radius: width * 0.2,
               ),
               const Spacer(),
