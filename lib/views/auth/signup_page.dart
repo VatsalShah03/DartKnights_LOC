@@ -90,9 +90,7 @@ class _SignupPageState extends State<SignupPage> {
                 decoration:
                     BoxDecoration(color: Colors.grey.shade400.withOpacity(0.1)),
               )),
-          AppBar(
-            backgroundColor: Colors.transparent,
-          ),
+
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -100,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                   key: _formKey,
                   child: Card(
                     color: Colors.grey[200],
-                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    margin: EdgeInsets.symmetric(horizontal: screenWidth*0.06,),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
@@ -115,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: Text(
                               "Register! ",
                               style: TextStyle(
-                                fontSize: screenWidth * 0.15,
+                                fontSize: screenWidth * 0.1,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),

@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) {
               return Center(
                   child: Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: MediaQuery.of(context).size.width * 0.7,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white,
@@ -130,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
             });
       }
     }
-
     return Scaffold(
       body: Stack(
         children: [
@@ -157,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     color: Colors.grey[200],
-                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    margin: EdgeInsets.symmetric(horizontal: screenWidth*0.06,),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             "Hello,",
                             style: TextStyle(
-                              fontSize: 80,
+                              fontSize: screenWidth*0.2,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -255,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 "Don't have an account?  ",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: screenWidth*0.03,
                                 ),
                               ),
                               GestureDetector(
@@ -268,7 +267,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Text(
                                   "Register Now",
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.blue),
+                                      fontSize: screenWidth*0.03, color: Colors.blue),
                                 ),
                               ),
                             ],
@@ -278,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text("---OR---"),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: screenWidth*0.04,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -311,8 +310,8 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: EdgeInsets.all(10),
                                   child: Image.asset(
                                     "assets/images.png",
-                                    width: 30,
-                                    height: 30,
+                                    width: screenWidth*0.09,
+                                    height: screenWidth*0.09,
                                   ),
                                 ),
                               ),
@@ -322,8 +321,8 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: EdgeInsets.all(10),
                                 child: Image.asset(
                                   "assets/f-logo.png",
-                                  width: 30,
-                                  height: 30,
+                                  width: screenWidth*0.09,
+                                  height: screenWidth*0.09,
                                 ),
                               ),
                             ),
