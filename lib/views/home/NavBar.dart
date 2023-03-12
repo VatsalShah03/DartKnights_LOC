@@ -1,8 +1,8 @@
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/home/Jobs.dart';
 import 'package:dart_knights/views/home/Notification_Page.dart';
-import 'package:dart_knights/views/home/jobs.dart';
 import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
