@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   final userCollection = FirebaseFirestore.instance.collection('Users');
   String? name;
   String? email;
-  bool? isEmployer;
+  bool? isEmployer, isPremium;
   Position? position;
 
   getUserDetails() async {
@@ -17,7 +17,8 @@ class HomeController extends GetxController {
     name = ds.get("Name");
     email = ds.get("Email");
     isEmployer = ds.get("is Employer");
-    return [name, email, isEmployer];
+    isPremium = ds.get("isPremium");
+    return [name, email, isEmployer, isPremium];
   }
 
   getCurrentUserLocation() async {

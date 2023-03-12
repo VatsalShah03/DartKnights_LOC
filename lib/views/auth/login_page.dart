@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) {
               return Center(
                   child: Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: 300,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white,

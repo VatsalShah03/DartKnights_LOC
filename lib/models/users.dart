@@ -7,6 +7,7 @@ class Users {
   final bool isEmployer;
   final String? orgName;
   final String? aadhaarNo;
+  final bool isPremium;
 
   Users(
       {this.id,
@@ -16,7 +17,8 @@ class Users {
       this.aadhaarNo,
       this.orgName,
       required this.isEmployer,
-      required this.Email});
+      required this.Email,
+      required this.isPremium});
 
   Map<String, dynamic> toJson() => {
         'marker id': id,
@@ -26,7 +28,8 @@ class Users {
         'Org Name': orgName,
         'Aadhaar Number': aadhaarNo,
         'Email': Email,
-        'is Employer': isEmployer
+        'is Employer': isEmployer,
+        'isPremium': isPremium
       };
 
   static Users fromJson(Map<String, dynamic> json) => Users(
@@ -37,5 +40,6 @@ class Users {
       Name: json["Name"],
       latitude: json['latitude'],
       longitude: json['longitude'],
+      isPremium: json['isPremium'],
       orgName: json["Org Name"]);
 }

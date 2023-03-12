@@ -42,14 +42,31 @@ class _mapsState extends State<maps> {
       body: StreamBuilder(
           stream: _readEmployersLocation(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+
+            if (snapshot.hasData) {
+              for (int j = 0; j < snapshot.data!.length; j++) {
+                if (snapshot.data![j].id == user!.uid &&
+                    !snapshot.data![j].isPremium) {
+                  return Center(
+                      child: Text(
+                    "Sorry! You have to avail premium to enable this feature. Do so by clicking on the hamburger icon located at top left.",
+                    style: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: 1.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21),
+                  ));
+                }
+              }
             }
             if (snapshot.hasError) {
               return Center(
                 child: Text(snapshot.error.toString()),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
               );
             }
 
@@ -162,9 +179,9 @@ class _mapsState extends State<maps> {
     return null;
   }
 
-  Stream<List<Users>> readEmployers() {
-    return FirebaseFirestore.instance.collection("Users").snapshots().map(
-        (snapshot) =>
-            snapshot.docs.map((doc) => Users.fromJson(doc.data())).toList());
-  }
+  // Stream<List<Users>> readEmployers() {
+  //   return FirebaseFirestore.instance.collection("Users").snapshots().map(
+  //       (snapshot) =>
+  //           snapshot.docs.map((doc) => Users.fromJson(doc.data())).toList());
+  // }
 }

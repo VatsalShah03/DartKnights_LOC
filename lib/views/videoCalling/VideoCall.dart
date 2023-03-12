@@ -4,16 +4,14 @@ import 'package:dart_knights/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
+import '../../controllers/home_controller.dart';
 
 class VideoCall extends StatelessWidget {
-
   const VideoCall({super.key});
-
-
 
   Future<bool> getPermissions() async {
     if (Platform.isIOS) return true;
@@ -36,6 +34,7 @@ class VideoCall extends StatelessWidget {
 // UI to render join screen
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.put(HomeController());
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
@@ -68,27 +67,25 @@ class VideoCall extends StatelessWidget {
       //     ),
       //   ),
       // ),
-      body: Center(child: Container(
-        height: height*9,
-        width: width*6,
-
-        child: SvgPicture.asset(
-            'assets/videocall.svg'),
-      ),),
+      body: Center(
+        child: Container(
+          height: height * 9,
+          width: width * 6,
+          child: SvgPicture.asset('assets/videocall.svg'),
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await getPermissions();
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (_) => const MeetingPage()),
-                );
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const MeetingPage()),
+          );
         },
         backgroundColor: ResourceColors.secondaryColor,
         label: const Text('Join Now'),
-
       ),
     );
-
   }
 }
 
@@ -190,8 +187,8 @@ class _MeetingPageState extends State<MeetingPage>
   @override
   void onTrackUpdate(
       {required HMSTrack track,
-        required HMSTrackUpdate trackUpdate,
-        required HMSPeer peer}) {
+      required HMSTrackUpdate trackUpdate,
+      required HMSPeer peer}) {
     if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
       switch (trackUpdate) {
         case HMSTrackUpdate.trackRemoved:
@@ -219,7 +216,7 @@ class _MeetingPageState extends State<MeetingPage>
   @override
   void onAudioDeviceChanged(
       {HMSAudioDevice? currentAudioDevice,
-        List<HMSAudioDevice>? availableAudioDevice}) {}
+      List<HMSAudioDevice>? availableAudioDevice}) {}
 
   @override
   void onChangeTrackStateRequest(
@@ -255,32 +252,32 @@ class _MeetingPageState extends State<MeetingPage>
     return Container(
       key: key,
       child: (videoTrack != null && !(videoTrack.isMute))
-      // Actual widget to render video
+          // Actual widget to render video
           ? HMSVideoView(
-        track: videoTrack,
-      )
+              track: videoTrack,
+            )
           : Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.blue.withAlpha(4),
-            shape: BoxShape.circle,
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.blue,
-                blurRadius: 20.0,
-                spreadRadius: 5.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue.withAlpha(4),
+                  shape: BoxShape.circle,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.blue,
+                      blurRadius: 20.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  peer?.name.substring(0, 1) ?? "D",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
-            ],
-          ),
-          child: Text(
-            peer?.name.substring(0, 1) ?? "D",
-            style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
+            ),
     );
   }
 
