@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_knights/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' show FlutterBluePlus;
@@ -202,6 +203,7 @@ class _MainPage extends State<MainPage> {
     //getmac();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ResourceColors.primaryColor,
         title: const Text('Flutter Bluetooth Serial'),
       ),
       body: Container(

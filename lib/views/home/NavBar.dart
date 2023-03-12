@@ -4,6 +4,7 @@ import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/NewsPage.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
 import 'package:dart_knights/views/MentalHealth.dart';
+import 'package:dart_knights/views/home/Notification_Page.dart';
 import 'package:dart_knights/views/home/jobs.dart';
 import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
@@ -82,7 +83,14 @@ class _NavBarState extends State<NavBar> {
                       MaterialPageRoute(builder: (context) => MentalHealth()));
                 },
                 icon: Icon(Icons.health_and_safety_rounded)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationPage()));
+                },
+                icon: Icon(Icons.notifications)),
           ]),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ResourceColors.secondaryColor,
