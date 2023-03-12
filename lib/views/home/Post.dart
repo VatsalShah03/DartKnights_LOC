@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../auth/notification_api.dart';
+
 class Post extends StatefulWidget {
   const Post({Key? key}) : super(key: key);
 
@@ -144,6 +146,12 @@ class _PostState extends State<Post> {
                               "uid": FirebaseAuth.instance.currentUser!.uid,
                               "UserName": homeController.name,
                             };
+                            NotificationApi.showNotification(
+                                title: homeController.name,
+                                body: _descriptionController.text.trim(),
+                                payload: "payload"
+                            );
+
                             await FirebaseFirestore.instance
                                 .collection("Posts")
                                 .doc()

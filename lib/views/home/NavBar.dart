@@ -1,6 +1,7 @@
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/home/Notification_Page.dart';
 import 'package:dart_knights/views/home/jobs.dart';
 import 'package:dart_knights/views/home/EmployerPost.dart';
 import 'package:dart_knights/views/maps.dart';
@@ -58,7 +59,12 @@ class _NavBarState extends State<NavBar> {
           title: Text(list[_selectedIndex]),
           backgroundColor: ResourceColors.primaryColor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+            IconButton(onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context)=> NotificationPage(),
+              ));
+            },
+                icon: Icon(Icons.notifications)),
           ]),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
