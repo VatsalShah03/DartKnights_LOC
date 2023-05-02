@@ -4,9 +4,10 @@ import 'package:dart_knights/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import '../../controllers/home_controller.dart';
 class VideoCall extends StatelessWidget {
   const VideoCall({super.key});
 
@@ -31,6 +32,7 @@ class VideoCall extends StatelessWidget {
 // UI to render join screen
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.put(HomeController());
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;

@@ -11,11 +11,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    //options: DefaultFirebaseOptions.currentPlatform,
-  );
+      //options: DefaultFirebaseOptions.currentPlatform,
+      );
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -52,14 +52,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context)=> GoogleSignInProvider(),
-    child: MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-    fontFamily: GoogleFonts.poppins().fontFamily
-    ),
-    home: HomePage(),
-    ));
+        create: (context) => GoogleSignInProvider(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(fontFamily: GoogleFonts.poppins().fontFamily),
+          darkTheme: ThemeData(
+              brightness: Brightness.dark
+          ),
+          home: HomePage(),
+        ));
   }
 }
-

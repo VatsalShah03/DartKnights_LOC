@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/auth_controller/g_sign_in.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/Donation.dart';
 import 'package:dart_knights/views/nearby_devices/example/MainPage.dart';
 import 'package:dart_knights/views/payment/razorpay.dart';
 import 'package:dart_knights/views/profile/profile_main.dart';
@@ -13,6 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import '../Donation.dart';
+import '../payment/razorpay.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key});
@@ -110,6 +115,51 @@ class _NavDrawerState extends State<NavDrawer> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Setting()));
                     }),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.video_camera_front,
+                //     color: Colors.blueGrey.shade900,
+                //   ),
+                //   title: Text(
+                //     "Video Call",
+                //     style: TextStyle(fontSize: 16),
+                //   ),
+                //   onTap: () {
+                //     print(homeController.isPremium!);
+                //     snapshot.data[3]
+                //         ? Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => VideoCall()))
+                //         : ScaffoldMessenger.of(context).showSnackBar(
+                //             SnackBar(
+                //               content: Text(
+                //                 "Sorry! You have to avail premium to enable this feature. Do so by clicking on the hamburger icon located at top left.",
+                //                 style: TextStyle(
+                //                     color: Colors.black,
+                //                     letterSpacing: 1.5,
+                //                     fontWeight: FontWeight.bold,
+                //                     fontSize: 21),
+                //               ),
+                //               behavior: SnackBarBehavior.floating,
+                //               backgroundColor: Colors.white,
+                //             ),
+                //           );
+                //   },
+                // ),
+                ListTile(
+                    leading: Icon(
+                      Icons.water_drop,
+                      color: Colors.blueGrey.shade900,
+                    ),
+                    title: Text(
+                      "Donations",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Donation()));
+                    }),
                 ListTile(
                   leading: Icon(
                     Icons.logout,
@@ -139,8 +189,23 @@ class _NavDrawerState extends State<NavDrawer> {
                         MaterialPageRoute(builder: (context) => MainPage()));
                   },
                 ),
-                Spacer(),
-                getPremiumNow()
+                SizedBox(height: 210,),
+                //getPremiumNow()
+                ListTile(
+                    leading: Icon(
+                      Icons.monetization_on,
+                      color: ResourceColors.secondaryColor,
+                    ),
+                    title: Text(
+                      "Try Premium",
+                      style: TextStyle(fontSize: 16,
+                      color: ResourceColors.secondaryColor,
+                      fontWeight: FontWeight.w900),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => Payment()));
+                    }),
               ],
             );
           }),
@@ -152,12 +217,13 @@ class _NavDrawerState extends State<NavDrawer> {
     final userCollection = FirebaseFirestore.instance.collection('Users');
     String? name;
     String? email;
-    bool? isEmployer;
+    bool? isEmployer, isPremium;
 
     DocumentSnapshot ds = await userCollection.doc(user.uid).get();
     name = ds.get("Name");
     email = ds.get("Email");
     isEmployer = ds.get("is Employer");
-    return [name, email, isEmployer];
+    isPremium = ds.get("isPremium");
+    return [name, email, isEmployer, isPremium];
   }
 }

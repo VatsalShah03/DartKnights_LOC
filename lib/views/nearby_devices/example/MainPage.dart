@@ -14,7 +14,8 @@ import './BackgroundCollectedPage.dart';
 import './BackgroundCollectingTask.dart';
 import './ChatPage.dart';
 import './DiscoveryPage.dart';
-import './SelectBondedDevicePage.dart';
+import 'SelectBondedDevicePage.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -233,6 +234,9 @@ class _MainPage extends State<MainPage> {
               title: const Text('Bluetooth status'),
               subtitle: Text(_bluetoothState.toString()),
               trailing: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        ResourceColors.secondaryColor)),
                 child: const Text('Settings'),
                 onPressed: () {
                   FlutterBluetoothSerial.instance.openSettings();
@@ -241,6 +245,9 @@ class _MainPage extends State<MainPage> {
             ),
             ListTile(
               title: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          ResourceColors.secondaryColor)),
                   child: const Text('Explore discovered devices'),
                   onPressed: () async {
                     //getMAc();
@@ -262,6 +269,9 @@ class _MainPage extends State<MainPage> {
             ),
             ListTile(
               title: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        ResourceColors.secondaryColor)),
                 child: const Text('Connect to paired device to chat'),
                 onPressed: () async {
                   final BluetoothDevice? selectedDevice =

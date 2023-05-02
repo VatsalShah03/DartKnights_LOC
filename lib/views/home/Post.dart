@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
+import 'package:dart_knights/views/auth/notification_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../auth/notification_api.dart';
 
 class Post extends StatefulWidget {
   const Post({Key? key}) : super(key: key);
@@ -92,15 +92,15 @@ class _PostState extends State<Post> {
                       children: [
                         image != null
                             ? Image.file(
-                                image!,
-                                width: 160,
-                                height: 160,
-                                fit: BoxFit.cover,
-                              )
+                          image!,
+                          width: 160,
+                          height: 160,
+                          fit: BoxFit.cover,
+                        )
                             : Image.network(
-                                'https://cdn.icon-icons.com/icons2/564/PNG/512/Add_Image_icon-icons.com_54218.png',
-                                scale: 4,
-                              )
+                          'https://cdn.icon-icons.com/icons2/564/PNG/512/Add_Image_icon-icons.com_54218.png',
+                          scale: 4,
+                        )
                       ],
                     ),
                   ),

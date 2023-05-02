@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/Home.dart';
 import 'package:dart_knights/NewsPage.dart';
@@ -14,11 +15,19 @@ import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/views/home/Post.dart';
 import 'package:dart_knights/views/home/drawer.dart';
 import 'package:dart_knights/views/videoCalling/VideoCall.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+
+
+import '../../NewsPage.dart';
+import '../Donation.dart';
+import '../MentalHealth.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -33,27 +42,46 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
+  final user = FirebaseAuth.instance.currentUser!;
+  final userCollection = FirebaseFirestore.instance.collection('Users');
+  String? name;
+  String? email;
+  bool? isEmployer, isPremium;
+  Position? position;
+  late List<dynamic> list;
+
+  getUserDetails() async {
+    DocumentSnapshot ds = await userCollection.doc(user.uid).get();
+    name = ds.get("Name");
+    email = ds.get("Email");
+    isEmployer = ds.get("is Employer");
+    isPremium = ds.get("isPremium");
+    return [name, email, isEmployer, isPremium];
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     homeController.getCurrentUserLocation();
     homeController.getUserDetails();
+    getUserDetails();
   }
 
   @override
   Widget build(BuildContext context) {
+
     List<IconData> iconList = [
       Icons.home,
       Icons.newspaper,
       Icons.work,
-      homeController.isEmployer == true ? Icons.video_call : Icons.location_pin
+      isEmployer == true ? Icons.video_call : Icons.location_pin
     ];
     List<String> list = [
       "Home",
       "News",
       "Jobs",
-      homeController.isEmployer == true ? "Video Call" : "Map",
+      isEmployer == true ? "Video Call" : "Map",
       "Post"
     ];
     print(homeController.isEmployer);
@@ -61,8 +89,8 @@ class _NavBarState extends State<NavBar> {
       Home(),
       FlutterNews(),
       JobsPage(),
-      homeController.isEmployer == true ? VideoCall() : maps(),
-      homeController.isEmployer == true ? EmployerPost() : Post()
+      isEmployer == true ? VideoCall() : maps(),
+      isEmployer == true ? EmployerPost() : Post()
     ];
     return Scaffold(
       drawer: NavDrawer(),

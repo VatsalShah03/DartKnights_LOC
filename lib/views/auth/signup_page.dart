@@ -34,6 +34,7 @@ class _SignupPageState extends State<SignupPage> {
     data["Name"] =
         _fNameController.text.trim() + " " + _lNameController.text.trim();
     data["Email"] = _emailController.text.trim();
+    data["isPremium"] = false;
     if (signUpAsAnEmployer) {
       data["Aadhaar Number"] = aadharCardController.text.trim();
       data["Org Name"] = orgController.text.trim();

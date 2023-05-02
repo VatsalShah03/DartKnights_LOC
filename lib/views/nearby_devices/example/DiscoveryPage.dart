@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_knights/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
@@ -76,6 +77,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ResourceColors.primaryColor,
         title: isDiscovering
             ? Text('Discovering devices')
             : Text('Discovered devices'),
