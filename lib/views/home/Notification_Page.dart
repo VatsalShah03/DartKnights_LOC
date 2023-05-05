@@ -35,74 +35,60 @@ class _NotificationPageState extends State<NotificationPage> {
             }
             return ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: 5,
-                //snapshot.data!.length,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   Jobs job = snapshot.data![index];
                   return Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
-                      child: Container(
-                        width: double.infinity,
-                        constraints: BoxConstraints(
-                          maxWidth: 570,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 3,
-                              color: Color(0x33000000),
-                              offset: Offset(0, 1),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                  height: 85,
-                                  width: 70,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/flutter_icon.png"))),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 4),
-                                    child: Text(
-                                      'Company Name',
-                                      style: TextStyle(
-                                        color: Color(0xFF101213),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 12),
-                                    child: Text(
-                                      job.Description,
-                                      style: TextStyle(
-                                        color: Color(0xFF57636C),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                    child: Container(
+                      width: double.infinity,
+                      constraints: BoxConstraints(
+                        maxWidth: 570,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 3,
+                            color: Color(0x33000000),
+                            offset: Offset(0, 1),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                              child: Text(
+                                'Company Name',
+                                style: TextStyle(
+                                  color: Color(0xFF101213),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              job.Description,
+                              style: TextStyle(
+                                color: Color(0xFF57636C),
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              maxLines: 10,
+                            ),
+                          ],
                         ),
-                      ));
+                      ),
+                    ),
+                  );
                 });
           }),
     );

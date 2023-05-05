@@ -77,7 +77,7 @@ class _mapsState extends State<maps> {
             ));
 
             for (int i = 0; i < snapshot.data!.length; i++) {
-              print(snapshot.data![i].latitude!);
+              print(snapshot.data![i].longitude);
               if (snapshot.data![i].isEmployer == true) {
                 _markers.add(
                   Marker(
@@ -178,10 +178,4 @@ class _mapsState extends State<maps> {
     }
     return null;
   }
-
-  // Stream<List<Users>> readEmployers() {
-  //   return FirebaseFirestore.instance.collection("Users").snapshots().map(
-  //       (snapshot) =>
-  //           snapshot.docs.map((doc) => Users.fromJson(doc.data())).toList());
-  // }
 }

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_knights/constants.dart';
 import 'package:dart_knights/controllers/home_controller.dart';
@@ -117,6 +117,7 @@ class _PostState extends State<Post> {
                         padding: EdgeInsets.all(10),
                         child: ListTile(
                           onTap: () async {
+                            showDialog(context: context, builder: (context)=>Center(child: CircularProgressIndicator(),));
                             Map<String, dynamic> data = {
                               "Description": _descriptionController.text.trim(),
                               "url": await uploadFile(),
@@ -132,6 +133,7 @@ class _PostState extends State<Post> {
                                 .collection("Posts")
                                 .doc()
                                 .set(data);
+                            Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -181,6 +183,7 @@ class _PostState extends State<Post> {
       final imageTemporary = File(image.path);
       setState(() {
         this.image = imageTemporary;
+        name = basename(imageTemporary.path);
       });
     } on PlatformException catch (e) {
       print('Failed to pick image:$e');
@@ -194,6 +197,7 @@ class _PostState extends State<Post> {
   //   return File(path).copy(image.path);
   // }
   Future uploadFile() async {
+
     final path = 'images/$name';
     final ref = FirebaseStorage.instance.ref().child(path);
     var uploadTask = ref.putFile(image!);
